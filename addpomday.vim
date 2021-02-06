@@ -1,0 +1,1 @@
+O:put =strftime('%Y-%m-%d')$a: 0kdd:wq

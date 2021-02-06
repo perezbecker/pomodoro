@@ -1,0 +1,22 @@
+### BEGIN bashrc functions for Pomodoro program
+
+function countdown(){
+ date1=$((`date +%s` + $1));
+ while [ "$date1" -ge `date +%s` ]; do
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.5
+     done
+}
+
+function stopwatch(){
+ date1=`date +%s`;
+ while true; do
+     echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+     sleep 0.5
+ done
+}
+
+alias pom25='countdown $((25*60));vim -s ~/code/pomodoro/add1pom.vim ~/code/pomodoro/pom.txt;echo `head -n 1 ~/code/pomodoro/pom.txt | awk '\''{print $2}'\''` pomodoros so far, last one ended at: `date +"%H:%M"`'
+alias pomday='vim -s ~/code/pomodoro/addpomday.vim ~/code/pomodoro/pom.txt;echo created pomodoro entry for `head -n 1 ~/code/pomodoro/pom.txt | awk '\''{print $1}'\''` 0 pomodoros so far'
+
+### END bashrc functions for Pomodoro program

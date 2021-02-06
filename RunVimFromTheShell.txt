@@ -1,0 +1,22 @@
+From: Igor Burago: https://stackoverflow.com/questions/5932102/how-to-automat-editing-of-several-files-in-vim
+
+
+Despite the fact that using ed or sed is a common practice1 in such cases, sometimes using Vim is much more convenient. Indeed, instead of writing an ed-like script somewhat blindly, it is often easier to first perform the desired manipulations with one of the files interactively in Vim:
+
+vim -w log.vim file1.txt
+and then repeat it on the rest of the files:
+
+for f in file*.txt; do vim -s log.vim "$f"; done
+For your example use case, the log.vim file will likely have contents similar to the following:
+
+gg55dd:25,35s/^/\/\/ /
+:w %_new
+:q!
+Note that to save the file with new name you should not type it directly, but rather use the % substitution, as shown above—otherwise all the modifications of all the following files will be saved to the same file, overwriting its contents every time. Alternatively, you can duplicate the files beforehand and then edit the copies in place (saving each of them by simply issuing the :w command without arguments).
+
+The advantage of this approach is that you can make all of the changes interactively, ensuring that you are getting the intended result at least on one of the files, before the edits are performed for the rest of them.
+
+1 Of course, you can use Vim in an ed-like fashion, too:
+
+for f in file*.txt; do vim -c '1,55d|25,35s/^/\/\/ /|w! '"${f}_new"'|q!' "$f"; done
+﻿
