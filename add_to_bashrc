@@ -16,7 +16,9 @@ function stopwatch(){
  done
 }
 
-alias pom25='countdown $((25*60));vim -s ~/code/pomodoro/add1pom.vim ~/code/pomodoro/pom.txt;echo `head -n 1 ~/code/pomodoro/pom.txt | awk '\''{print $2}'\''` pomodoros so far, last one ended at: `date +"%H:%M"`'
-alias pomday='vim -s ~/code/pomodoro/addpomday.vim ~/code/pomodoro/pom.txt;echo created pomodoro entry for `head -n 1 ~/code/pomodoro/pom.txt | awk '\''{print $1}'\''` 0 pomodoros so far'
+export POMPATH=~/code/pomodoro
+
+alias pom25='countdown $((25*60));vim -s "$POMPATH"/add1pom.vim "$POMPATH"/pom.txt;echo `head -n 1 "$POMPATH"/pom.txt | awk '\''{print $2}'\''` pomodoros so far, last one ended at: `date +"%H:%M"`'
+alias pomday='vim -s "$POMPATH"/addpomday.vim "$POMPATH"/pom.txt;echo created pomodoro entry for `head -n 1 "$POMPATH"/pom.txt | awk '\''{print $1}'\''` 0 pomodoros so far'
 
 ### END bashrc functions for Pomodoro program
